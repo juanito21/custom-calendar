@@ -1,0 +1,26 @@
+:host {
+  .mat-mdc-cell {
+    padding: 0!important;
+  }
+
+  .mat-mdc-header-cell {
+    width: 80px;
+    max-width: 100px;
+  }
+
+  .table-header {
+    text-align: right;
+  }
+
+  .not-current-month-cell {
+    background-color: #f3f3f3;
+  }
+
+  .calendar-cell {
+    cursor: pointer;
+  }
+
+  .calendar-cell:hover {
+    background-color: #fafafa;
+  }
+}

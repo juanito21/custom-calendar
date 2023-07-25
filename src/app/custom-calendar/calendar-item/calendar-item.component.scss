@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 9em;
+
+  .day {
+    text-align: right;
+    padding: 5px 10px;
+  }
+
+  .current-month-day {
+    font-weight: bold;
+  }
+
+  .item-header {
+    min-height: 36px;
+  }
+
+  .events {
+    display: flex;
+    justify-content: start;
+    flex-direction: column-reverse;
+  }
+}

@@ -1,0 +1,4 @@
+<span class="legend-item" *ngFor="let legend of legends; let i = index" >
+  <mat-icon class="legend-icon" [ngStyle]="{color: colors[i]}" aria-hidden="false" aria-label="line" fontIcon="horizontal_rule"></mat-icon>
+  {{legend}}
+</span>

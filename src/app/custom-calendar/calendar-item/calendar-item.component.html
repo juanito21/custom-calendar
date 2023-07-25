@@ -1,0 +1,18 @@
+<div class="item-header">
+  <div class="day" [ngClass]="{'current-month-day': currentMonth}">
+    {{ dayOfMonth }}
+  </div>
+  <div class="holidays">
+
+    <app-calendar-holiday
+      *ngFor="let holiday of holidays"
+      [color]="holiday.color"
+    ></app-calendar-holiday>
+  </div>
+</div>
+
+<div class="events">
+
+  <app-calendar-event *ngFor="let event of eventsToDisplay" [params]="event"></app-calendar-event>
+  <span *ngIf="eventsNotDisplayed > 0">+ {{eventsNotDisplayed}}</span>
+</div>
