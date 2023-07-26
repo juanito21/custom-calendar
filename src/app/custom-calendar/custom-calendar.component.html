@@ -9,7 +9,9 @@
 <table *ngIf="_monthView" mat-table [fixedLayout]=true [dataSource]="monthData" class="mat-elevation-z4">
   <ng-container *ngFor="let day of days" [matColumnDef]="day">
     <th mat-header-cell class="month-table-header" *matHeaderCellDef> {{ day | slice:0:3 | uppercase }} </th>
-    <td class="calendar-cell" [ngClass]="{'not-current-month-cell': !element[day].isCurrentMonth}" mat-cell *matCellDef="let element">
+    <td class="calendar-cell"
+        [ngClass]="{'not-current-month-cell': !element[day].isCurrentMonth, 'public-holiday': element[day].publicHoliday}"
+        mat-cell *matCellDef="let element">
       <app-month-item [params]="element[day]"></app-month-item>
     </td>
   </ng-container>
@@ -20,7 +22,8 @@
   <ng-container *ngFor="let month of months" [matColumnDef]="month">
     <th mat-header-cell class="year-table-header" *matHeaderCellDef> {{ month | slice:0:3 | uppercase }} </th>
     <td class="calendar-cell" mat-cell *matCellDef="let element">
-      <app-year-item [ngClass]="{today: element[month].today}" *ngIf="element[month] !== undefined" [params]="element[month]"></app-year-item>
+      <app-year-item [ngClass]="{today: element[month].today, 'public-holiday': element[month].publicHoliday}" *ngIf="element[month] !== undefined"
+                     [params]="element[month]"></app-year-item>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="yearDisplayedColumns"></tr>

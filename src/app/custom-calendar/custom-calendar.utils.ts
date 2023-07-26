@@ -103,7 +103,8 @@ export function convertDateToYearCalendarItem(
               date: dates[dateIndex],
               events: dateToEvent[dates[dateIndex].toISOString()],
               holidays: dateToHolidays[dates[dateIndex].toISOString()],
-              today: isToday(dates[dateIndex])
+              today: isToday(dates[dateIndex]),
+              publicHoliday: dateToHolidays[dates[dateIndex].toISOString()].filter(h => h.publicHoliday).length > 0
             }
           }
         }
@@ -134,7 +135,8 @@ export function convertDateToMonthCalendarItem(
           isCurrentMonth: dates[i * 7 + index].getMonth() === currentMonth,
           events: dateToEvent[dates[i * 7 + index].toISOString()],
           holidays: dateToHolidays[dates[i * 7 + index].toISOString()],
-          today: isToday(dates[i * 7 + index])
+          today: isToday(dates[i * 7 + index]),
+          publicHoliday: dateToHolidays[dates[i * 7 + index].toISOString()].filter(h => h.publicHoliday).length > 0
         }
       }))
     );

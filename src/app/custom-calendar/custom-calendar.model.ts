@@ -13,6 +13,7 @@ export interface YearCalendarItemParams {
   date: Date;
   events: CalendarEventParams[];
   holidays: CalendarHolidayParams[];
+  publicHoliday: boolean;
   today: boolean;
 }
 
@@ -21,6 +22,7 @@ export interface MonthCalendarItemParams {
   isCurrentMonth: boolean;
   events: CalendarEventParams[];
   holidays: CalendarHolidayParams[];
+  publicHoliday: boolean;
   today: boolean;
 }
 
@@ -56,7 +58,7 @@ export interface CalendarHoliday {
   id: number;
   start: string;
   end: string;
-  legend: string;
+  legend?: string;
   color?: string;
 }
 

@@ -6,12 +6,16 @@ import {
   CalendarHolidayParams,
   colors,
   DayOfWeek,
-  days, Month,
-  MonthCalendarItem, months, YearCalendarItem
+  days,
+  Month,
+  MonthCalendarItem,
+  months,
+  YearCalendarItem
 } from "./custom-calendar.model";
 import {debounceTime, tap} from "rxjs";
 import {
-  convertDateToMonthCalendarItem, convertDateToYearCalendarItem,
+  convertDateToMonthCalendarItem,
+  convertDateToYearCalendarItem,
   getCalendarEventParams,
   getCalendarHolidaysParams,
   getDaysInMonth,
@@ -99,7 +103,7 @@ export class CustomCalendarComponent {
   setAndGetLegend(): { [legend: string]: string } {
     const legendToColor = Object.assign(
       {},
-      ...[...new Set(this._holidays.map(e => e.legend))]
+      ...[...new Set(this._holidays.map(e => e.legend).filter(l => l !== undefined))]
         .map((legend, index) => ({[legend]: colors[(colors.length) - 1 - index % colors.length]})))
     this.legends = Object.keys(legendToColor);
     this.colors = Object.values(legendToColor);

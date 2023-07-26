@@ -21,6 +21,7 @@ export class AppComponent {
   ];
 
   holidays: CalendarHoliday[] = [
+    {start: '2023-07-14', end: '2023-07-14', id: 1},
     {start: '2023-07-19', end: '2023-07-29', id: 1, legend: 'Zone A'},
     {start: '2023-07-19', end: '2023-07-29', id: 2, legend: 'Zone B'},
     {start: '2023-07-19', end: '2023-07-29', id: 2, legend: 'Zone C'},
