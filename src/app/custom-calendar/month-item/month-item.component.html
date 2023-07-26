@@ -1,6 +1,6 @@
 <div class="item-header">
   <div class="day" [ngClass]="{'current-month-day': currentMonth}">
-    {{ dayOfMonth }}
+    <span [ngClass]="{'today': today}">{{ dayOfMonth }}</span>
   </div>
   <div class="holidays">
 

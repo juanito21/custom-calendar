@@ -1,4 +1,16 @@
 :host {
+
+  .calendar-header {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+  }
+
+  .today {
+    background-color: rgba(255, 0, 0, 0.1);
+  }
+
   .mat-mdc-cell {
     padding: 0!important;
   }

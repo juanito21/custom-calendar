@@ -5,6 +5,7 @@ import {
   MonthCalendarItemParams,
   YearCalendarItemParams
 } from "../custom-calendar.model";
+import {isToday} from "../custom-calendar.utils";
 
 @Component({
   selector: 'app-year-item',

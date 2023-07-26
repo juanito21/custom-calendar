@@ -20,6 +20,8 @@ import { CalendarLegendComponent } from './custom-calendar/calendar-legend/calen
 import { YearItemComponent } from './custom-calendar/year-item/year-item.component';
 import { YearEventComponent } from './custom-calendar/year-item/year-event/year-event.component';
 import { YearHolidayComponent } from './custom-calendar/year-item/year-holiday/year-holiday.component';
+import { YearPickerComponent } from './custom-calendar/year-picker/year-picker.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -33,17 +35,19 @@ registerLocaleData(localeFr);
     CalendarLegendComponent,
     YearItemComponent,
     YearEventComponent,
-    YearHolidayComponent
+    YearHolidayComponent,
+    YearPickerComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDatepickerModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatButtonToggleModule
+    ],
   providers: [{provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent]
 })

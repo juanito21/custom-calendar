@@ -14,9 +14,11 @@ export class MonthItemComponent {
   dayOfMonth: number;
   currentMonth: boolean;
   publicHoliday: boolean;
+  today: boolean;
 
   @Input() set params(value: MonthCalendarItemParams) {
     this.eventsToDisplay = value.events.slice(0, 3);
+    this.today = value.today;
     this.eventsNotDisplayed = value.events.length - this.eventsToDisplay.length;
     this.dayOfMonth = value.dayOfMonth;
     this.currentMonth = value.isCurrentMonth;

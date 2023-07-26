@@ -29,7 +29,7 @@ export class CustomCalendarComponent {
   _year: number = new Date().getFullYear();
   _events: CalendarEvent[] = [];
   _holidays: CalendarHoliday[] = [];
-  _monthView: boolean = false;
+  _monthView: boolean = true;
 
   legends: string[] = [];
   colors: string[] = [];
@@ -82,7 +82,6 @@ export class CustomCalendarComponent {
 
   setYearData() {
     const datesInYear = getDaysInYear(this._year);
-    // console.log(datesInYear);
     const dateToEvents = this.getDateToEvents(datesInYear);
     const legendToColor = this.setAndGetLegend();
     const dateToHolidays = this.getDateToHolidays(datesInYear, legendToColor);
@@ -125,6 +124,9 @@ export class CustomCalendarComponent {
     }));
   }
 
+  onViewToggle(toggle: boolean) {
+    this.monthView = toggle;
+  }
 
   protected readonly days = days;
   protected readonly months = months;

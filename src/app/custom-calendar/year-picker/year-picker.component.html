@@ -1,11 +1,11 @@
 <button [disabled]="!isInFuture" mat-icon-button aria-label="first" (click)="backToNow()" >
   <mat-icon *ngIf="isInFuture">first_page</mat-icon>
 </button>
-<button mat-icon-button aria-label="previous" (click)="previousMonth()">
+<button mat-icon-button aria-label="previous" (click)="previousYear()">
   <mat-icon>navigate_before</mat-icon>
 </button>
-<button mat-button class="date-button">{{ date | date: 'MMMM YYYY' | titlecase }}</button>
-<button mat-icon-button aria-label="next" (click)="nextMonth()">
+<button mat-button class="date-button">{{ date | date: 'YYYY' | titlecase }}</button>
+<button mat-icon-button aria-label="next" (click)="nextYear()">
   <mat-icon>navigate_next</mat-icon>
 </button>
 <button [disabled]="!isInPast" mat-icon-button aria-label="last" (click)="backToNow()" >

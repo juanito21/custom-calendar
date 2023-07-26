@@ -13,6 +13,7 @@ export interface YearCalendarItemParams {
   date: Date;
   events: CalendarEventParams[];
   holidays: CalendarHolidayParams[];
+  today: boolean;
 }
 
 export interface MonthCalendarItemParams {
@@ -20,6 +21,7 @@ export interface MonthCalendarItemParams {
   isCurrentMonth: boolean;
   events: CalendarEventParams[];
   holidays: CalendarHolidayParams[];
+  today: boolean;
 }
 
 export interface CalendarEvent {

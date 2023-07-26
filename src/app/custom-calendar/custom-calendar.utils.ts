@@ -94,15 +94,16 @@ export function convertDateToYearCalendarItem(
     const item = Object.assign(
       {},
       ...months.map((month: Month, index) => {
-        const daysSinceBeginning = getDaysBetween(new Date(year, 0), new Date(year, index));
-        const dateIndex = Math.min(i + daysSinceBeginning, dates.length - 1);
-        const date = dates[dateIndex];
-        if (date.getMonth() !== index) return undefined;
+          const daysSinceBeginning = getDaysBetween(new Date(year, 0), new Date(year, index));
+          const dateIndex = Math.min(i + daysSinceBeginning, dates.length - 1);
+          const date = dates[dateIndex];
+          if (date.getMonth() !== index) return undefined;
           return {
             [month]: {
               date: dates[dateIndex],
               events: dateToEvent[dates[dateIndex].toISOString()],
-              holidays: dateToHolidays[dates[dateIndex].toISOString()]
+              holidays: dateToHolidays[dates[dateIndex].toISOString()],
+              today: isToday(dates[dateIndex])
             }
           }
         }
@@ -132,7 +133,8 @@ export function convertDateToMonthCalendarItem(
           dayOfMonth: dates[i * 7 + index].getDate(),
           isCurrentMonth: dates[i * 7 + index].getMonth() === currentMonth,
           events: dateToEvent[dates[i * 7 + index].toISOString()],
-          holidays: dateToHolidays[dates[i * 7 + index].toISOString()]
+          holidays: dateToHolidays[dates[i * 7 + index].toISOString()],
+          today: isToday(dates[i * 7 + index])
         }
       }))
     );
@@ -196,4 +198,11 @@ export function withDaysAfter(days: Date[]) {
     day = lastDay.getDay() == 0 ? 6 : lastDay.getDay() - 1;
   }
   return days.concat(result);
+}
+
+export function isToday(date: Date) {
+  const today = new Date();
+  return date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear();
 }
