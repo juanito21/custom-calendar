@@ -1,12 +1,12 @@
 import {Component, Input} from '@angular/core';
-import {CalendarEventParams, CalendarHolidayParams, CalendarItemParams} from "../custom-calendar.model";
+import {CalendarEventParams, CalendarHolidayParams, MonthCalendarItemParams} from "../custom-calendar.model";
 
 @Component({
-  selector: 'app-calendar-item',
-  templateUrl: './calendar-item.component.html',
-  styleUrls: ['./calendar-item.component.scss']
+  selector: 'app-month-item',
+  templateUrl: './month-item.component.html',
+  styleUrls: ['./month-item.component.scss']
 })
-export class CalendarItemComponent {
+export class MonthItemComponent {
 
   eventsToDisplay: CalendarEventParams[];
   holidays: CalendarHolidayParams[];
@@ -15,15 +15,12 @@ export class CalendarItemComponent {
   currentMonth: boolean;
   publicHoliday: boolean;
 
-  @Input() set params(value: CalendarItemParams) {
+  @Input() set params(value: MonthCalendarItemParams) {
     this.eventsToDisplay = value.events.slice(0, 3);
     this.eventsNotDisplayed = value.events.length - this.eventsToDisplay.length;
     this.dayOfMonth = value.dayOfMonth;
     this.currentMonth = value.isCurrentMonth;
     this.holidays = value.holidays.filter(h => !h.publicHoliday);
     this.publicHoliday = value.holidays.filter(h => h.publicHoliday).length > 0;
-  }
-
-  constructor() {
   }
 }

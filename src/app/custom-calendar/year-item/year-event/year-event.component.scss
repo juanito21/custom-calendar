@@ -1,0 +1,50 @@
+:host {
+  cursor: pointer;
+
+  .card-event {
+    height: 100%;
+    width: 1em;
+    border-radius: 0;
+    color: white;
+    --mdc-elevated-card-container-elevation: none;
+
+    .card-event-content {
+      line-height: 1em;
+      font-size: 10px;
+      text-align: center;
+      font-weight: bold;
+      padding-top: 0.5em!important;
+    }
+  }
+
+  .mat-mdc-card-content:last-child {
+    padding: 0!important;
+  }
+
+  .mat-mdc-card-content:first-child {
+    padding: 0!important;
+  }
+
+  .mat-mdc-card-content {
+    padding: 0!important;
+
+  }
+
+  .first-day {
+    margin-top: 5px;
+    border-radius: 5px 5px 0 0 !important;
+  }
+
+  .last-day {
+    margin-bottom: 5px;
+    border-radius: 0 0 5px 5px !important;
+  }
+
+  .first-day-and-last-day {
+    border-radius: 5px 5px 5px 5px !important;
+  }
+
+  .invisible {
+    opacity: 0;
+  }
+}

@@ -1,14 +1,21 @@
-export const days: string[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-export const months: string[] = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'november', 'october', 'december'];
+export const days: string[] = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+export const months: string[] = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'novembre', 'octobre', 'decembre'];
 
 export type DayOfWeek = typeof days[number];
 export type Month = typeof months[number];
 
-export type CalendarItem = Record<DayOfWeek, CalendarItemParams>
+export type MonthCalendarItem = Record<DayOfWeek, MonthCalendarItemParams>
+export type YearCalendarItem = Record<Month, MonthCalendarItemParams>
 
 export const colors: string[] = ['#fcba03', '#0380fc', '#863bdc', '#449e00', '#d9004c']
 
-export interface CalendarItemParams {
+export interface YearCalendarItemParams {
+  date: Date;
+  events: CalendarEventParams[];
+  holidays: CalendarHolidayParams[];
+}
+
+export interface MonthCalendarItemParams {
   dayOfMonth: number;
   isCurrentMonth: boolean;
   events: CalendarEventParams[];

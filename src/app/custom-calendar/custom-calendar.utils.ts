@@ -3,14 +3,19 @@ import {
   CalendarEventParams,
   CalendarHoliday,
   CalendarHolidayParams,
-  CalendarItem,
   colors,
   DayOfWeek,
   days,
-  emptyCalendarEventParams
+  emptyCalendarEventParams,
+  Month,
+  MonthCalendarItem,
+  months,
+  YearCalendarItem
 } from "./custom-calendar.model";
 
-export function getCalendarHolidaysParams(date: Date, events: CalendarHoliday[], legendToColor: {[legend: string]: string}): CalendarHolidayParams[] {
+export function getCalendarHolidaysParams(date: Date, events: CalendarHoliday[], legendToColor: {
+  [legend: string]: string
+}): CalendarHolidayParams[] {
   const availableEvents = events.filter(event => isWithinEvent(date, event));
   return availableEvents.map((event, index) => ({
     id: event.id,
@@ -78,14 +83,47 @@ export function isSameDate(date: Date, other: string) {
     && date.getFullYear() === otherDate.getFullYear();
 }
 
+export function convertDateToYearCalendarItem(
+  dates: Date[],
+  year: number,
+  dateToEvent: { [isoDate: string]: CalendarEventParams[] },
+  dateToHolidays: { [isoDate: string]: CalendarHolidayParams[] }
+): YearCalendarItem[] {
+  const result: YearCalendarItem[] = [];
+  for (let i = 0; i < Math.ceil(dates.length / 12); i++) {
+    const item = Object.assign(
+      {},
+      ...months.map((month: Month, index) => {
+        const daysSinceBeginning = getDaysBetween(new Date(year, 0), new Date(year, index));
+        const dateIndex = Math.min(i + daysSinceBeginning, dates.length - 1);
+        const date = dates[dateIndex];
+        if (date.getMonth() !== index) return undefined;
+          return {
+            [month]: {
+              date: dates[dateIndex],
+              events: dateToEvent[dates[dateIndex].toISOString()],
+              holidays: dateToHolidays[dates[dateIndex].toISOString()]
+            }
+          }
+        }
+      ).filter(item => item !== undefined)
+    );
+    result.push(item as any)
+  }
+  return result;
+}
 
-export function convertDateToCalendarItem(
+export function getDaysBetween(date1: Date, date2: Date) {
+  return Math.round((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
+}
+
+export function convertDateToMonthCalendarItem(
   dates: Date[],
   dateToEvent: { [isoDate: string]: CalendarEventParams[] },
   dateToHolidays: { [isoDate: string]: CalendarHolidayParams[] },
   currentMonth: number
-): CalendarItem[] {
-  const result: CalendarItem[] = [];
+): MonthCalendarItem[] {
+  const result: MonthCalendarItem[] = [];
   for (let i = 0; i < Math.ceil(dates.length / 7); i++) {
     const item = Object.assign(
       {},
@@ -111,6 +149,25 @@ export function getDaysInMonth(month, year): Date[] {
     date.setDate(date.getDate() + 1);
   }
   return withDaysAfter(withDaysBefore(days));
+}
+
+export function getDaysInYear(year: number): Date[] {
+  return getDatesInRange(new Date(year, 0), new Date(year, 11, 31));
+}
+
+function getDatesInRange(startDate, endDate) {
+  const start = new Date(new Date(startDate).setHours(0));
+  const end = new Date(new Date(endDate).setHours(0));
+
+  const date = new Date(start.getTime());
+  const dates = [];
+
+  while (date <= end) {
+    dates.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+
+  return dates;
 }
 
 export function withDaysBefore(days: Date[]) {

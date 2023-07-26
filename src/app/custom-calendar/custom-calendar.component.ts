@@ -2,17 +2,20 @@ import {Component, EventEmitter, Input} from '@angular/core';
 import {
   CalendarEvent,
   CalendarEventParams,
-  CalendarHoliday, CalendarHolidayParams,
-  CalendarItem, colors,
+  CalendarHoliday,
+  CalendarHolidayParams,
+  colors,
   DayOfWeek,
-  days
+  days, Month,
+  MonthCalendarItem, months, YearCalendarItem
 } from "./custom-calendar.model";
 import {debounceTime, tap} from "rxjs";
 import {
-  convertDateToCalendarItem,
+  convertDateToMonthCalendarItem, convertDateToYearCalendarItem,
   getCalendarEventParams,
   getCalendarHolidaysParams,
-  getDaysInMonth
+  getDaysInMonth,
+  getDaysInYear
 } from "./custom-calendar.utils";
 
 @Component({
@@ -26,12 +29,17 @@ export class CustomCalendarComponent {
   _year: number = new Date().getFullYear();
   _events: CalendarEvent[] = [];
   _holidays: CalendarHoliday[] = [];
+  _monthView: boolean = false;
 
   legends: string[] = [];
   colors: string[] = [];
 
-  monthData: CalendarItem[] = [];
-  displayedColumns: DayOfWeek[] = days;
+  monthData: MonthCalendarItem[] = [];
+  yearData: YearCalendarItem[] = [];
+
+  monthDisplayedColumns: DayOfWeek[] = days;
+  yearDisplayedColumns: Month[] = months;
+
   setterEvent: EventEmitter<number> = new EventEmitter<number>();
 
   @Input() set month(value: number) {
@@ -54,10 +62,15 @@ export class CustomCalendarComponent {
     this.setterEvent.emit(0);
   }
 
+  @Input() set monthView(value: boolean) {
+    this._monthView = value;
+    this.setterEvent.emit(0);
+  }
+
   constructor() {
     this.setterEvent.pipe(
       debounceTime(100),
-      tap(() => this.setMonthData())
+      tap(() => this._monthView ? this.setMonthData() : this.setYearData())
     ).subscribe();
   }
 
@@ -66,26 +79,53 @@ export class CustomCalendarComponent {
     this.month = dateAsDate.getMonth();
     this.year = dateAsDate.getFullYear();
   }
+
+  setYearData() {
+    const datesInYear = getDaysInYear(this._year);
+    // console.log(datesInYear);
+    const dateToEvents = this.getDateToEvents(datesInYear);
+    const legendToColor = this.setAndGetLegend();
+    const dateToHolidays = this.getDateToHolidays(datesInYear, legendToColor);
+    this.yearData = convertDateToYearCalendarItem(datesInYear, this._year, dateToEvents, dateToHolidays);
+  }
+
   setMonthData() {
     const datesInMonth = getDaysInMonth(this._month, this._year);
-    let previousEvents = [];
-    const dateToEvents: { [isoDate: string]: CalendarEventParams[] } = Object.assign({}, ...datesInMonth.map(date => {
-      const eventsOfDate = getCalendarEventParams(date, this._events, previousEvents);
-      previousEvents = eventsOfDate;
-      return {[date.toISOString()]: eventsOfDate};
-    }));
+    const dateToEvents = this.getDateToEvents(datesInMonth);
+    const legendToColor = this.setAndGetLegend();
+    const dateToHolidays = this.getDateToHolidays(datesInMonth, legendToColor);
+    this.monthData = convertDateToMonthCalendarItem(datesInMonth, dateToEvents, dateToHolidays, this._month);
+  }
+
+  setAndGetLegend(): { [legend: string]: string } {
     const legendToColor = Object.assign(
       {},
       ...[...new Set(this._holidays.map(e => e.legend))]
         .map((legend, index) => ({[legend]: colors[(colors.length) - 1 - index % colors.length]})))
     this.legends = Object.keys(legendToColor);
     this.colors = Object.values(legendToColor);
-    const dateToHolidays: { [isoDate: string]: CalendarHolidayParams[] } = Object.assign({}, ...datesInMonth.map(date => {
+    return legendToColor;
+  }
+
+  getDateToHolidays(dates: Date[], legendToColor: { [legend: string]: string }): {
+    [isoDate: string]: CalendarHolidayParams[]
+  } {
+    return Object.assign({}, ...dates.map(date => {
       const eventsOfDate = getCalendarHolidaysParams(date, this._holidays, legendToColor);
       return {[date.toISOString()]: eventsOfDate};
     }));
-    this.monthData = convertDateToCalendarItem(datesInMonth, dateToEvents, dateToHolidays, this._month);
   }
 
+  getDateToEvents(dates: Date[]): { [isoDate: string]: CalendarEventParams[] } {
+    let previousEvents = [];
+    return Object.assign({}, ...dates.map(date => {
+      const eventsOfDate = getCalendarEventParams(date, this._events, previousEvents);
+      previousEvents = eventsOfDate;
+      return {[date.toISOString()]: eventsOfDate};
+    }));
+  }
+
+
   protected readonly days = days;
+  protected readonly months = months;
 }

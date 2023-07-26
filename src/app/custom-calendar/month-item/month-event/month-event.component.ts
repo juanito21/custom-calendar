@@ -2,11 +2,11 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CalendarEventParams} from "../../custom-calendar.model";
 
 @Component({
-  selector: 'app-calendar-event',
-  templateUrl: './calendar-event.component.html',
-  styleUrls: ['./calendar-event.component.scss']
+  selector: 'app-month-event',
+  templateUrl: './month-event.component.html',
+  styleUrls: ['./month-event.component.scss']
 })
-export class CalendarEventComponent {
+export class MonthEventComponent {
   @Input() params: CalendarEventParams;
   @Output() click: EventEmitter<number> = new EventEmitter();
 

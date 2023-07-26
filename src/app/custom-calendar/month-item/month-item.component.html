@@ -4,15 +4,14 @@
   </div>
   <div class="holidays">
 
-    <app-calendar-holiday
+    <app-month-holiday
       *ngFor="let holiday of holidays"
       [color]="holiday.color"
-    ></app-calendar-holiday>
+    ></app-month-holiday>
   </div>
 </div>
 
 <div class="events">
-
-  <app-calendar-event *ngFor="let event of eventsToDisplay" [params]="event"></app-calendar-event>
+  <app-month-event *ngFor="let event of eventsToDisplay" [params]="event"></app-month-event>
   <span *ngIf="eventsNotDisplayed > 0">+ {{eventsNotDisplayed}}</span>
 </div>

@@ -1,0 +1,8 @@
+<mat-card
+  (click)="onClick()"
+  class="mat-elevation-z0 card-event"
+  [style.background]="params.color ? params.color : 'gray'"
+  [ngClass]="{'first-day': params.firstDay, 'last-day': params.lastDay, 'first-day-and-last-day': params.firstDay && params.lastDay, 'invisible': params.invisible}"
+>
+  <mat-card-content class="card-event-content">{{params.description | slice:0:2 | uppercase }}</mat-card-content>
+</mat-card>

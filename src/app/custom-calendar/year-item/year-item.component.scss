@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  flex-direction: row;
+
+  .day {
+    padding: 0 10px;
+    color: gray;
+    font-size: 11px;
+    width: 50px;
+    .day-number {
+      font-weight: bold;
+    }
+  }
+
+  .holidays {
+    width: 30px;
+    display: flex;
+    justify-content: start;
+    flex-direction: row-reverse;
+  }
+
+  .events {
+    display: flex;
+    justify-content: end;
+    flex-direction: row;
+  }
+
+
+
+
+}
