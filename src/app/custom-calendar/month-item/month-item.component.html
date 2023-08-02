@@ -1,6 +1,7 @@
 <div class="item-header">
   <div class="day" [ngClass]="{'current-month-day': currentMonth}">
     <span [ngClass]="{'today': today}">{{ dayOfMonth }}</span>
+    <span class="public-holiday" *ngIf="publicHoliday">Férié</span>
   </div>
   <div class="holidays">
 

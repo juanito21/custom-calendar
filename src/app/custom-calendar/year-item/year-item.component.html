@@ -1,6 +1,7 @@
 <p class="day">
   <span class="day-name">{{date | date:'E' | slice:0:3 | uppercase}}</span>
-  <span class="day-number">{{date | date:'dd'}}</span>
+  <span class="day-number">{{date | date:'dd'}}</span><br/>
+  <span class="public-holiday" *ngIf="publicHoliday">Férié</span>
 </p>
 <div class="holidays">
   <app-year-holiday *ngFor="let holiday of holidays" [color]="holiday.color"></app-year-holiday>
@@ -9,4 +10,3 @@
   <app-year-event *ngFor="let event of eventsToDisplay" [params]="event"></app-year-event>
   <span *ngIf="eventsNotDisplayed > 0">+ {{eventsNotDisplayed}}</span>
 </div>
-

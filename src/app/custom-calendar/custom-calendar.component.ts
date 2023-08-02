@@ -6,7 +6,7 @@ import {
   CalendarHolidayParams,
   colors,
   DayOfWeek,
-  days,
+  days, holidayColors,
   Month,
   MonthCalendarItem,
   months,
@@ -33,7 +33,7 @@ export class CustomCalendarComponent {
   _year: number = new Date().getFullYear();
   _events: CalendarEvent[] = [];
   _holidays: CalendarHoliday[] = [];
-  _monthView: boolean = true;
+  _monthView: boolean = false;
 
   legends: string[] = [];
   colors: string[] = [];
@@ -104,7 +104,7 @@ export class CustomCalendarComponent {
     const legendToColor = Object.assign(
       {},
       ...[...new Set(this._holidays.map(e => e.legend).filter(l => l !== undefined))]
-        .map((legend, index) => ({[legend]: colors[(colors.length) - 1 - index % colors.length]})))
+        .map((legend, index) => ({[legend]: holidayColors[index % holidayColors.length]})))
     this.legends = Object.keys(legendToColor);
     this.colors = Object.values(legendToColor);
     return legendToColor;

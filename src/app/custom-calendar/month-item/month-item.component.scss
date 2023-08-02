@@ -8,13 +8,27 @@
   .day {
     text-align: right;
     padding: 5px 10px;
+    height: 26px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
   }
 
   .today {
-    background-color: red;
-    color: white;
-    padding: 4px;
-    border-radius: 20px;
+    background:red;
+    border-radius:50%;
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 6px;
+  }
+
+  .public-holiday {
+    color: gray;
+    font-weight: normal;
   }
 
   .current-month-day {

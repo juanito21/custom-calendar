@@ -6,7 +6,7 @@ import {
   colors,
   DayOfWeek,
   days,
-  emptyCalendarEventParams,
+  emptyCalendarEventParams, eventColors,
   Month,
   MonthCalendarItem,
   months,
@@ -34,7 +34,7 @@ export function getCalendarEventParams(date: Date, events: CalendarEvent[], prev
       firstDay: isSameDate(date, event.start),
       lastDay: isSameDate(date, event.end),
       description: previousFound ? '' : event.description,
-      color: event.color || colors[index % colors.length],
+      color: event.color || eventColors[index % eventColors.length],
       invisible: false
     };
   });
@@ -104,6 +104,7 @@ export function convertDateToYearCalendarItem(
               events: dateToEvent[dates[dateIndex].toISOString()],
               holidays: dateToHolidays[dates[dateIndex].toISOString()],
               today: isToday(dates[dateIndex]),
+              weekEndDay: isWeekEndDay(dates[dateIndex]),
               publicHoliday: dateToHolidays[dates[dateIndex].toISOString()].filter(h => h.publicHoliday).length > 0
             }
           }
@@ -136,6 +137,7 @@ export function convertDateToMonthCalendarItem(
           events: dateToEvent[dates[i * 7 + index].toISOString()],
           holidays: dateToHolidays[dates[i * 7 + index].toISOString()],
           today: isToday(dates[i * 7 + index]),
+          weekEndDay: isWeekEndDay(dates[i * 7 + index]),
           publicHoliday: dateToHolidays[dates[i * 7 + index].toISOString()].filter(h => h.publicHoliday).length > 0
         }
       }))
@@ -207,4 +209,8 @@ export function isToday(date: Date) {
   return date.getDate() === today.getDate() &&
     date.getMonth() === today.getMonth() &&
     date.getFullYear() === today.getFullYear();
+}
+
+export function isWeekEndDay(date: Date) {
+  return date.getDay() === 6 || date.getDay() === 0;
 }

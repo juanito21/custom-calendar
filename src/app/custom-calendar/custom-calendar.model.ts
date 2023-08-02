@@ -7,7 +7,9 @@ export type Month = typeof months[number];
 export type MonthCalendarItem = Record<DayOfWeek, MonthCalendarItemParams>
 export type YearCalendarItem = Record<Month, MonthCalendarItemParams>
 
-export const colors: string[] = ['#fcba03', '#0380fc', '#863bdc', '#449e00', '#d9004c']
+export const colors: string[] = ['#fcba03', '#0380fc', '#863bdc', '#449e00', '#d9004c'];
+export const eventColors: string[] = ['#FAF2DA', '#E4EFF6', '#E3F3EF', '#FEEBDB', '#F5CDBF', '#D1CDE8'];
+export const holidayColors: string[] = ['#6558B1', '#00B388', '#F2827F'];
 
 export interface YearCalendarItemParams {
   date: Date;
@@ -15,6 +17,7 @@ export interface YearCalendarItemParams {
   holidays: CalendarHolidayParams[];
   publicHoliday: boolean;
   today: boolean;
+  weekEndDay: boolean;
 }
 
 export interface MonthCalendarItemParams {
@@ -24,6 +27,7 @@ export interface MonthCalendarItemParams {
   holidays: CalendarHolidayParams[];
   publicHoliday: boolean;
   today: boolean;
+  weekEndDay: boolean;
 }
 
 export interface CalendarEvent {

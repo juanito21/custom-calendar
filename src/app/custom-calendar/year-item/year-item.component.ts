@@ -20,13 +20,15 @@ export class YearItemComponent {
   eventsNotDisplayed: number = 0;
   date: Date;
   publicHoliday: boolean;
+  weekEndDay: boolean;
 
   @Input() set params(value: YearCalendarItemParams) {
     if (value === undefined) {
       this.empty = true;
       return;
     }
-    this.eventsToDisplay = value.events.slice(0, 5);
+    this.eventsToDisplay = value.events;
+    this.weekEndDay = value.weekEndDay;
     this.eventsNotDisplayed = value.events.length - this.eventsToDisplay.length;
     this.date = value.date;
     this.holidays = value.holidays.filter(h => !h.publicHoliday);

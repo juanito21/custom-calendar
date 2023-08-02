@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'custom-calendar';
 
   events: CalendarEvent[] = [
+    {start: '2023-01-19', end: '2023-02-29', id: 1, description: 'Jean HASCOET'},
     {start: '2023-01-02', end: '2023-01-09', id: 1, description: 'Jean HASCOET'},
     {start: '2023-07-19', end: '2023-07-29', id: 1, description: 'Jean HASCOET'},
     {start: '2023-07-21', end: '2023-07-24', id: 2, description: 'b2'},
